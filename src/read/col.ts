@@ -16,7 +16,8 @@ import {
 } from "react-firebase-hooks/firestore"
 import {Data} from "react-firebase-hooks/firestore/dist/firestore/types"
 import {Fn, Source} from "../types"
-import {db} from "@the-chat/firebase"
+import {get} from "@the-chat/firebase"
+const {db} = get()
 
 // collection functions first type argument is type of element of array, not of array
 

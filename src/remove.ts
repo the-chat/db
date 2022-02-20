@@ -1,4 +1,5 @@
-import {db} from "@the-chat/firebase"
+import {get} from "@the-chat/firebase"
+const {db} = get()
 import {doc, deleteDoc, deleteField} from "firebase/firestore"
 import {update} from "./update"
 

@@ -15,7 +15,8 @@ import {
 } from "react-firebase-hooks/firestore"
 import {Data} from "react-firebase-hooks/firestore/dist/firestore/types"
 import {Fn, Source} from "../types"
-import {db} from "@the-chat/firebase"
+import {get} from "@the-chat/firebase"
+const {db} = get()
 
 const useDocBase = <T, R>(
   fn: Fn<R, DocumentReference<T>>,
