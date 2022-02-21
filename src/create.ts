@@ -1,6 +1,4 @@
-import {get} from "@the-chat/firebase"
-import {setDoc, collection, doc} from "firebase/firestore"
-const {db} = get()
+import {setDoc, collection, doc, Firestore} from "firebase/firestore"
 
-export const create = <T>(path: string, data: T) =>
+export const create = <T>(db: Firestore, path: string, data: T) =>
   setDoc(path.split("/")[1] ? doc(db, path) : doc(collection(db, path)), data)

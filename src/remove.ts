@@ -1,12 +1,11 @@
-import {get} from "@the-chat/firebase"
-const {db} = get()
-import {doc, deleteDoc, deleteField} from "firebase/firestore"
+import {doc, deleteDoc, deleteField, Firestore} from "firebase/firestore"
 import {update} from "./update"
 
 // todo: catch
-export const remove = (path: string, ...fields: string[]) => {
+export const remove = (db: Firestore, path: string, ...fields: string[]) => {
   if (fields[0])
     return update(
+      db,
       path,
       fields.reduce(
         (a, b) => ({

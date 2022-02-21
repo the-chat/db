@@ -6,6 +6,7 @@ import {
   // onSnapshot,
   // Query,
   getDoc,
+  Firestore,
 } from "@firebase/firestore"
 import {
   useDocument as useFirebaseDocument,
@@ -15,10 +16,9 @@ import {
 } from "react-firebase-hooks/firestore"
 import {Data} from "react-firebase-hooks/firestore/dist/firestore/types"
 import {Fn, Source} from "../types"
-import {get} from "@the-chat/firebase"
-const {db} = get()
 
 const useDocBase = <T, R>(
+  db: Firestore,
   fn: Fn<R, DocumentReference<T>>,
   path: string,
   sourceOrIncludeMetadataChanges?: boolean | Source
@@ -36,22 +36,29 @@ const useDocBase = <T, R>(
       : {}
   )
 
-export const useDoc = <T>(path: string, includeMetadataChanges?: boolean) =>
+export const useDoc = <T>(
+  db: Firestore,
+  path: string,
+  includeMetadataChanges?: boolean
+) =>
   useDocBase<T, DocumentSnapshot<T>>(
+    db,
     useFirebaseDocument,
     path,
     includeMetadataChanges
   )
 
-export const useDocOnce = <T>(path: string, source?: Source) =>
-  useDocBase<T, DocumentSnapshot<T>>(useFirebaseDocumentOnce, path, source)
+export const useDocOnce = <T>(db: Firestore, path: string, source?: Source) =>
+  useDocBase<T, DocumentSnapshot<T>>(db, useFirebaseDocumentOnce, path, source)
 
 export const useDocData = <T>(
+  db: Firestore,
   path: string,
   defV?: T,
   includeMetadataChanges?: boolean
 ): [T, boolean, FirestoreError] => {
   const [val, loading, error] = useDocBase<T, Data<T>>(
+    db,
     useFirebaseDocumentData,
     path,
     includeMetadataChanges
@@ -61,11 +68,13 @@ export const useDocData = <T>(
 }
 
 export const useDocDataOnce = <T>(
+  db: Firestore,
   path: string,
   defV?: T,
   source?: Source
 ): [T, boolean, FirestoreError] => {
   const [val, loading, error] = useDocBase<T, Data<T>>(
+    db,
     useFirebaseDocumentDataOnce,
     path,
     source
@@ -80,17 +89,18 @@ export const useDocDataOnce = <T>(
 // todo: readDoc
 
 // todo?: catch arg type
-export const readDocOnce = <T>(path: string) => {
+export const readDocOnce = <T>(db: Firestore, path: string) => {
   return getDoc(doc(db, path)) as Promise<DocumentSnapshot<T>>
 }
 
 // TODO
 export const readDocDataOnce = <T>(
+  db: Firestore,
   path: string
 ): [T, boolean, FirestoreError] => {
   const ref: [T, boolean, FirestoreError] = [null, true, null]
 
-  readDocOnce<T>(path)
+  readDocOnce<T>(db, path)
     .then((doc) => (ref[0] = doc.data()))
     .catch((rej) => (ref[2] = rej))
     .finally(() => (ref[1] = false))
