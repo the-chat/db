@@ -2,6 +2,12 @@
   "name": "@the-chat/db",
   "version": "1.0.5",
   "main": "dist/index.js",
+  "scripts": {
+    "prepublish": "rm -rf dist&&tsc"
+  },
+  "files": [
+    "dist"
+  ],
   "repository": "git://github.com/the-chat/db",
   "license": "MIT",
   "dependencies": {
