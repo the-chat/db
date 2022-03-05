@@ -15,8 +15,8 @@ import {
   useCollectionDataOnce as useFirebaseCollectionDataOnce,
   useCollectionOnce as useFirebaseCollectionOnce,
 } from "react-firebase-hooks/firestore"
-import {Data} from "react-firebase-hooks/firestore/dist/firestore/types"
-import {Fn, Source} from "../types"
+import { Data } from "react-firebase-hooks/firestore/dist/firestore/types"
+import { Fn, Source } from "../types"
 
 // collection functions first type argument is type of element of array, not of array
 
@@ -36,7 +36,7 @@ const useCollectionBase = <T>(
 
     sourceOrincludeMetadataChanges
       ? typeof sourceOrincludeMetadataChanges == "string"
-        ? {getOptions: {source: sourceOrincludeMetadataChanges}}
+        ? { getOptions: { source: sourceOrincludeMetadataChanges } }
         : {
             snapshotListenOptions: {
               includeMetadataChanges: sourceOrincludeMetadataChanges,
@@ -109,7 +109,7 @@ export const useCollectionDataOnce = <T>(
 // todo: readCol
 // todo: readColData
 
-const getColData = ({docs}) => docs.map((doc) => doc.data())
+const getColData = ({ docs }) => docs.map((doc) => doc.data())
 
 export const readColOnce = <T>(db: Firestore, pathOrQuery: string | Query) =>
   getDocs(

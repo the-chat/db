@@ -1,5 +1,5 @@
-import {doc, deleteDoc, deleteField, Firestore} from "firebase/firestore"
-import {update} from "./update"
+import { doc, deleteDoc, deleteField, Firestore } from "firebase/firestore"
+import { update } from "./update"
 
 // todo: catch
 export const remove = (db: Firestore, path: string, ...fields: string[]) => {

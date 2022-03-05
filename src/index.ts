@@ -1,4 +1,4 @@
-import {create as _create} from "./create"
+import { create as _create } from "./create"
 import {
   readColDataOnce as _readColDataOnce,
   readColOnce as _readColOnce,
@@ -15,8 +15,8 @@ import {
   readDocOnce as _readDocOnce,
   readDocDataOnce as _readDocDataOnce,
 } from "./read/doc"
-import {update as _update} from "./update"
-import {remove as _remove} from "./remove"
+import { update as _update } from "./update"
+import { remove as _remove } from "./remove"
 import {
   DocumentData,
   DocumentSnapshot,
@@ -25,7 +25,7 @@ import {
   Query,
   QuerySnapshot,
 } from "firebase/firestore"
-import {Source} from "./types"
+import { Source } from "./types"
 
 const getDb = (db: Firestore) => {
   const create: <T>(path: string, data: T) => Promise<void> = (path, data) =>

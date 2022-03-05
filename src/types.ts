@@ -1,4 +1,4 @@
-import {FirestoreError} from "@firebase/firestore"
+import { FirestoreError } from "@firebase/firestore"
 import {
   OnceOptions,
   Options,

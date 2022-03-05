@@ -14,8 +14,8 @@ import {
   useDocumentDataOnce as useFirebaseDocumentDataOnce,
   useDocumentOnce as useFirebaseDocumentOnce,
 } from "react-firebase-hooks/firestore"
-import {Data} from "react-firebase-hooks/firestore/dist/firestore/types"
-import {Fn, Source} from "../types"
+import { Data } from "react-firebase-hooks/firestore/dist/firestore/types"
+import { Fn, Source } from "../types"
 
 const useDocBase = <T, R>(
   db: Firestore,
@@ -27,7 +27,7 @@ const useDocBase = <T, R>(
     doc(db, path) as DocumentReference<T>,
     sourceOrIncludeMetadataChanges
       ? typeof sourceOrIncludeMetadataChanges == "string"
-        ? {getOptions: {source: sourceOrIncludeMetadataChanges}}
+        ? { getOptions: { source: sourceOrIncludeMetadataChanges } }
         : {
             snapshotListenOptions: {
               includeMetadataChanges: sourceOrIncludeMetadataChanges,
