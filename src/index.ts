@@ -1,19 +1,15 @@
 import { create as _create } from "./create"
 import {
-  readColDataOnce as _readColDataOnce,
-  readColOnce as _readColOnce,
   useCollection as _useCollection,
   useCollectionData as _useCollectionData,
   useCollectionDataOnce as _useCollectionDataOnce,
   useCollectionOnce as _useCollectionOnce,
-} from "./read/col"
+} from "./read"
 import {
   useDoc as _useDoc,
   useDocData as _useDocData,
   useDocDataOnce as _useDocDataOnce,
   useDocOnce as _useDocOnce,
-  readDocOnce as _readDocOnce,
-  readDocDataOnce as _readDocDataOnce,
 } from "./read/doc"
 import { update as _update } from "./update"
 import { remove as _remove } from "./remove"
@@ -25,7 +21,14 @@ import {
   Query,
   QuerySnapshot,
 } from "firebase/firestore"
-import { Source } from "./types"
+import { Obj } from "./types"
+import {
+  Data,
+  DataOptions,
+  OnceDataOptions,
+  OnceOptions,
+  Options,
+} from "react-firebase-hooks/firestore/dist/firestore/types"
 
 const getDb = (db: Firestore) => {
   const create: <T>(path: string, data: T) => Promise<void> = (path, data) =>
@@ -41,94 +44,92 @@ const getDb = (db: Firestore) => {
     ...fields
   ) => _remove(db, path, ...fields)
 
-  const useCollection: <T>(
+  const useCollection: <T extends Obj>(
     pathOrQuery: string | Query,
-    includeMetadataChanges?: boolean
-  ) => [QuerySnapshot<T>, boolean, FirestoreError] = (
+    opts?: Options | undefined
+  ) => [QuerySnapshot<T>, boolean, FirestoreError | undefined] = (
     pathOrQuery,
     includeMetadataChanges
   ) => _useCollection(db, pathOrQuery, includeMetadataChanges)
-  const useCollectionOnce: <T>(
+  const useCollectionOnce: <T extends Obj>(
     pathOrQuery: string | Query,
-    source?: Source
-  ) => [QuerySnapshot<T>, boolean, FirestoreError] = (pathOrQuery, source) =>
-    _useCollectionOnce(db, pathOrQuery, source)
-  const useCollectionData: <T>(
+    opts: OnceOptions
+  ) => [
+    QuerySnapshot<T>,
+    boolean,
+    import("@firebase/firestore").FirestoreError | undefined
+  ] = (pathOrQuery, source) => _useCollectionOnce(db, pathOrQuery, source)
+  const useCollectionData: <T extends Obj>(
     pathOrQuery: string | Query,
-    defV?: T[],
-    includeMetadataChanges?: boolean
-  ) => [T[], boolean, FirestoreError] = (
-    pathOrQuery,
-    defV,
-    includeMetadataChanges
-  ) => _useCollectionData(db, pathOrQuery, defV, includeMetadataChanges)
-  const useCollectionDataOnce: <T>(
+    defV?: Data<T, "", "">[] | undefined,
+    opts?: DataOptions<T> | undefined
+  ) => [
+    Data<T, "", "">[],
+    boolean,
+    import("@firebase/firestore").FirestoreError | undefined
+  ] = (pathOrQuery, defV, includeMetadataChanges) =>
+    _useCollectionData(db, pathOrQuery, defV, includeMetadataChanges)
+  const useCollectionDataOnce: <T extends Obj>(
     pathOrQuery: string | Query,
-    defV?: T[],
-    source?: Source
-  ) => [T[], boolean, FirestoreError] = (pathOrQuery, defV, source) =>
+    defV?: T[] | undefined,
+    opts?: OnceDataOptions<T> | undefined
+  ) => [
+    Data<T, "", "">[],
+    boolean,
+    import("@firebase/firestore").FirestoreError | undefined
+  ] = (pathOrQuery, defV, source) =>
     _useCollectionDataOnce(db, pathOrQuery, defV, source)
-  const readColOnce: <T>(
-    pathOrQuery: string | Query
-  ) => Promise<QuerySnapshot<T>> = (pathOrQuery) =>
-    _readColOnce(db, pathOrQuery)
-  const readColDataOnce: <T>(
-    pathOrQuery: string | Query,
-    defV?: T[],
-    catchFn?: {
-      (...data: any[]): void
-      (message?: any, ...optionalParams: any[]): void
-    }
-  ) => Promise<T[]> = (pathOrQuery, defV, catchFn) =>
-    _readColDataOnce(db, pathOrQuery, defV, catchFn)
 
   const useDoc: <T>(
     path: string,
-    includeMetadataChanges?: boolean
-  ) => [DocumentSnapshot<T>, boolean, FirestoreError] = (
-    path,
-    includeMetadataChanges
-  ) => _useDoc(db, path, includeMetadataChanges)
-  const useDocOnce: <T>(
-    path: string,
-    source?: Source
-  ) => [DocumentSnapshot<T>, boolean, FirestoreError] = (path, source) =>
-    _useDocOnce(db, path, source)
+    opts: Options
+  ) => [
+    DocumentSnapshot<T>,
+    boolean,
+    import("@firebase/firestore").FirestoreError | undefined
+  ] = (path, includeMetadataChanges) =>
+    _useDoc(db, path, includeMetadataChanges)
   const useDocData: <T>(
     path: string,
-    defV?: T,
-    includeMetadataChanges?: boolean
-  ) => [T, boolean, FirestoreError] = (path, defV, includeMetadataChanges) =>
-    _useDocData(db, path, defV, includeMetadataChanges)
+    defV?: T | undefined,
+    opts?: Options | undefined
+  ) => [Data<T, "", ""> | undefined, boolean, FirestoreError | undefined] = (
+    path,
+    defV,
+    includeMetadataChanges
+  ) => _useDocData(db, path, defV, includeMetadataChanges)
+  const useDocOnce: <T>(
+    path: string,
+    opts: OnceOptions
+  ) => [
+    DocumentSnapshot<T>,
+    boolean,
+    import("@firebase/firestore").FirestoreError | undefined
+  ] = (path, source) => _useDocOnce(db, path, source)
   const useDocDataOnce: <T>(
     path: string,
-    defV?: T,
-    source?: Source
-  ) => [T, boolean, FirestoreError] = (path, defV, source) =>
-    _useDocDataOnce(db, path, defV, source)
-  const readDocOnce: <T>(path: string) => Promise<DocumentSnapshot<T>> = (
-    path
-  ) => _readDocOnce(db, path)
-  const readDocDataOnce: <T>(path: string) => [T, boolean, FirestoreError] = (
-    path
-  ) => _readDocDataOnce(db, path)
+    defV?: Data<T, "", ""> | undefined,
+    opts?: OnceOptions | undefined
+  ) => [
+    Data<T, "", ""> | undefined,
+    boolean,
+    import("@firebase/firestore").FirestoreError | undefined
+  ] = (path, defV, source) => _useDocDataOnce(db, path, defV, source)
 
   return {
     create,
     update,
     remove,
+
     useCollection,
     useCollectionData,
     useCollectionDataOnce,
     useCollectionOnce,
-    readColOnce,
-    readColDataOnce,
+
     useDoc,
     useDocData,
     useDocDataOnce,
     useDocOnce,
-    readDocDataOnce,
-    readDocOnce,
   }
 }
 
