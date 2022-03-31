@@ -4,8 +4,8 @@ import {
   OnceDataOptions,
   Data,
 } from "react-firebase-hooks/firestore/dist/firestore/types"
-import { RCFH, Obj } from "../../../types"
-import useCollectionBase from "../base"
+import { RCFH, Obj } from "../../types"
+import useCollectionBase from "./base"
 
 export const useCollectionDataOnce = <T extends Obj>(
   db: Firestore,

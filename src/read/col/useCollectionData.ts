@@ -3,8 +3,8 @@ import {
   Data,
   DataOptions,
 } from "react-firebase-hooks/firestore/dist/firestore/types"
-import { RCFH, Obj } from "../../../types"
-import useCollectionBase from "../base"
+import { RCFH, Obj } from "../../types"
+import useCollectionBase from "./base"
 import { useCollectionData as useFirebaseCollectionData } from "react-firebase-hooks/firestore"
 
 export const useCollectionData = <T extends Obj>(

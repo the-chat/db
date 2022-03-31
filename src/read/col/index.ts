@@ -1,3 +1,4 @@
-export { useCollectionOnce, useCollectionDataOnce } from "./once"
-export { readColOnce, readColDataOnce } from "./plainFns"
-export { useCollection, useCollectionData } from "./withHandlingChanges"
+export { useCollection } from "./useCollection"
+export { useCollectionOnce } from "./useCollectionOnce"
+export { useCollectionData } from "./useCollectionData"
+export { useCollectionDataOnce } from "./useCollectionDataOnce"
