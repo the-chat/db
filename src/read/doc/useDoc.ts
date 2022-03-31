@@ -14,4 +14,4 @@ export const useDoc = <T extends Obj>(
     useFirebaseDocument,
     path,
     opts
-  ) as RDFH<DocumentSnapshot<T>>
+  ) as RDFH<DocumentSnapshot<T> | undefined>

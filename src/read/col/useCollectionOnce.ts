@@ -14,4 +14,4 @@ export const useCollectionOnce = <T extends Obj>(
     useFirebaseCollectionOnce,
     pathOrQuery,
     opts
-  ) as RCFH<QuerySnapshot<T>>
+  ) as RCFH<QuerySnapshot<T> | undefined>

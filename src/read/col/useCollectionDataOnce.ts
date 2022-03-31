@@ -18,5 +18,5 @@ export const useCollectionDataOnce = <T extends Obj>(
     OnceDataOptions<T>
   >(db, useFirebaseCollectionDataOnce, pathOrQuery, opts)
 
-  return [value || defV, loading, error] as RCFH<Data<T>[]>
+  return [value || defV, loading, error] as RCFH<Data<T>[] | undefined>
 }

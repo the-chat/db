@@ -21,7 +21,7 @@ import {
   Query,
   QuerySnapshot,
 } from "firebase/firestore"
-import { Obj } from "./types"
+import { RCFH, RDFH, Obj } from "./types"
 import {
   Data,
   DataOptions,
@@ -47,74 +47,59 @@ const getDb = (db: Firestore) => {
   const useCollection: <T extends Obj>(
     pathOrQuery: string | Query,
     opts?: Options | undefined
-  ) => [QuerySnapshot<T>, boolean, FirestoreError | undefined] = (
+  ) => RCFH<QuerySnapshot<T> | undefined> = (
     pathOrQuery,
     includeMetadataChanges
   ) => _useCollection(db, pathOrQuery, includeMetadataChanges)
+
   const useCollectionOnce: <T extends Obj>(
     pathOrQuery: string | Query,
     opts: OnceOptions
-  ) => [
-    QuerySnapshot<T>,
-    boolean,
-    import("@firebase/firestore").FirestoreError | undefined
-  ] = (pathOrQuery, source) => _useCollectionOnce(db, pathOrQuery, source)
+  ) => RCFH<QuerySnapshot<T> | undefined> = (pathOrQuery, source) =>
+    _useCollectionOnce(db, pathOrQuery, source)
+
   const useCollectionData: <T extends Obj>(
     pathOrQuery: string | Query,
-    defV?: Data<T, "", "">[] | undefined,
+    defV?: Data<T>[] | undefined,
     opts?: DataOptions<T> | undefined
-  ) => [
-    Data<T, "", "">[],
-    boolean,
-    import("@firebase/firestore").FirestoreError | undefined
-  ] = (pathOrQuery, defV, includeMetadataChanges) =>
-    _useCollectionData(db, pathOrQuery, defV, includeMetadataChanges)
+  ) => RCFH<Data<T>[] | undefined> = (
+    pathOrQuery,
+    defV,
+    includeMetadataChanges
+  ) => _useCollectionData(db, pathOrQuery, defV, includeMetadataChanges)
+
   const useCollectionDataOnce: <T extends Obj>(
     pathOrQuery: string | Query,
     defV?: T[] | undefined,
     opts?: OnceDataOptions<T> | undefined
-  ) => [
-    Data<T, "", "">[],
-    boolean,
-    import("@firebase/firestore").FirestoreError | undefined
-  ] = (pathOrQuery, defV, source) =>
+  ) => RCFH<Data<T>[] | undefined> = (pathOrQuery, defV, source) =>
     _useCollectionDataOnce(db, pathOrQuery, defV, source)
 
   const useDoc: <T extends Obj>(
     path: string,
     opts: Options
-  ) => [
-    DocumentSnapshot<T>,
-    boolean,
-    import("@firebase/firestore").FirestoreError | undefined
-  ] = (path, includeMetadataChanges) =>
+  ) => RDFH<DocumentSnapshot<T> | undefined> = (path, includeMetadataChanges) =>
     _useDoc(db, path, includeMetadataChanges)
+
   const useDocData: <T extends Obj>(
     path: string,
     defV?: T | undefined,
     opts?: Options | undefined
-  ) => [Data<T, "", ""> | undefined, boolean, FirestoreError | undefined] = (
-    path,
-    defV,
-    includeMetadataChanges
-  ) => _useDocData(db, path, defV, includeMetadataChanges)
+  ) => RDFH<Data<T> | undefined> = (path, defV, includeMetadataChanges) =>
+    _useDocData(db, path, defV, includeMetadataChanges)
+
   const useDocOnce: <T extends Obj>(
     path: string,
     opts: OnceOptions
-  ) => [
-    DocumentSnapshot<T>,
-    boolean,
-    import("@firebase/firestore").FirestoreError | undefined
-  ] = (path, source) => _useDocOnce(db, path, source)
+  ) => RDFH<DocumentSnapshot<T> | undefined> = (path, source) =>
+    _useDocOnce(db, path, source)
+
   const useDocDataOnce: <T extends Obj>(
     path: string,
-    defV?: Data<T, "", ""> | undefined,
+    defV?: Data<T> | undefined,
     opts?: OnceOptions | undefined
-  ) => [
-    Data<T, "", ""> | undefined,
-    boolean,
-    import("@firebase/firestore").FirestoreError | undefined
-  ] = (path, defV, source) => _useDocDataOnce(db, path, defV, source)
+  ) => RDFH<Data<T> | undefined> = (path, defV, source) =>
+    _useDocDataOnce(db, path, defV, source)
 
   return {
     create,
