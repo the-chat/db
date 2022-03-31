@@ -1,11 +1,10 @@
-import { FirestoreError } from "@firebase/firestore"
-import {
-  OnceOptions,
-  Options,
-} from "react-firebase-hooks/firestore/dist/firestore/types"
+import { FirestoreError, Query, CollectionReference } from "@firebase/firestore"
 
-export type Source = OnceOptions["getOptions"]["source"]
-export type Fn<T, Ref> = (
+// todo?: to types pkg
+export type Obj = Record<string, unknown>
+export type FH<Ret, Ref, Opts> = (
   ref: Ref,
-  opts: Options | OnceOptions
-) => [T, boolean, FirestoreError]
+  opts?: Opts
+) => [Ret, boolean, FirestoreError | undefined] // Firebase Hook
+export type CFH<Ret, Opts> = FH<Ret, Query | CollectionReference, Opts> // Collection Firebase Hook
+export type RCFH<Ret> = ReturnType<CFH<Ret, never>> // Return of Collection Firebase Hook
