@@ -4,10 +4,10 @@ import {
   Data,
   Options,
 } from "react-firebase-hooks/firestore/dist/firestore/types"
-import { RDFH } from "../../types"
+import { RDFH, Obj } from "../../types"
 import { useDocBase } from "./base"
 
-export const useDocData = <T>(
+export const useDocData = <T extends Obj>(
   db: Firestore,
   path: string,
   defV?: T,

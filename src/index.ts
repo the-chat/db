@@ -80,7 +80,7 @@ const getDb = (db: Firestore) => {
   ] = (pathOrQuery, defV, source) =>
     _useCollectionDataOnce(db, pathOrQuery, defV, source)
 
-  const useDoc: <T>(
+  const useDoc: <T extends Obj>(
     path: string,
     opts: Options
   ) => [
@@ -89,7 +89,7 @@ const getDb = (db: Firestore) => {
     import("@firebase/firestore").FirestoreError | undefined
   ] = (path, includeMetadataChanges) =>
     _useDoc(db, path, includeMetadataChanges)
-  const useDocData: <T>(
+  const useDocData: <T extends Obj>(
     path: string,
     defV?: T | undefined,
     opts?: Options | undefined
@@ -98,7 +98,7 @@ const getDb = (db: Firestore) => {
     defV,
     includeMetadataChanges
   ) => _useDocData(db, path, defV, includeMetadataChanges)
-  const useDocOnce: <T>(
+  const useDocOnce: <T extends Obj>(
     path: string,
     opts: OnceOptions
   ) => [
@@ -106,7 +106,7 @@ const getDb = (db: Firestore) => {
     boolean,
     import("@firebase/firestore").FirestoreError | undefined
   ] = (path, source) => _useDocOnce(db, path, source)
-  const useDocDataOnce: <T>(
+  const useDocDataOnce: <T extends Obj>(
     path: string,
     defV?: Data<T, "", ""> | undefined,
     opts?: OnceOptions | undefined
