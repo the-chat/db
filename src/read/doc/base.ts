@@ -1,4 +1,4 @@
-import { doc, Firestore } from "firebase/firestore"
+import { collection, doc, Firestore } from "firebase/firestore"
 import { DFH } from "../../types"
 
 export const useDocBase = <T, Opts>(
@@ -6,4 +6,4 @@ export const useDocBase = <T, Opts>(
   fn: DFH<T, Opts>,
   path: string,
   opts?: Opts
-) => fn(doc(db, path), opts)
+) => fn(doc(collection(db, path.split("/")[0]), path.split("/")[1]), opts)
