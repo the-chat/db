@@ -17,7 +17,6 @@ import {
   DocumentData,
   DocumentSnapshot,
   Firestore,
-  FirestoreError,
   Query,
   QuerySnapshot,
 } from "firebase/firestore"

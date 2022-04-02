@@ -1,10 +1,6 @@
 import { DocumentSnapshot, Firestore } from "@firebase/firestore"
 import { useDocumentOnce as useFirebaseDocumentOnce } from "react-firebase-hooks/firestore"
-import {
-  Data,
-  OnceOptions,
-  Options,
-} from "react-firebase-hooks/firestore/dist/firestore/types"
+import { OnceOptions } from "react-firebase-hooks/firestore/dist/firestore/types"
 import { RDFH, Obj } from "../../types"
 import { useDocBase } from "./base"
 

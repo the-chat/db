@@ -1,4 +1,4 @@
-import { FirestoreError, Firestore } from "@firebase/firestore"
+import { Firestore } from "@firebase/firestore"
 import { useDocumentData as useFirebaseDocumentData } from "react-firebase-hooks/firestore"
 import {
   Data,
